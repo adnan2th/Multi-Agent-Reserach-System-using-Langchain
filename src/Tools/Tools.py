@@ -12,7 +12,7 @@ import re
 
 load_dotenv()
 
-tavily  = TavilyClient(api_key=os.getenv("Travily_Api_Key"))
+tavily  = TavilyClient(api_key=os.getenv("TRAVILY_API_KEY"))
 @tool
 def web_serach(query: str) -> str:
     """Search the web for relevant information based on a query."""
