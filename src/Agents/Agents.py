@@ -8,31 +8,15 @@ import os
 import streamlit as st
 
 
-# Load local .env file (for local development)
 load_dotenv()
 
-# Get API key from environment or Streamlit Cloud secrets
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+llm = ChatGroq( model="openai/gpt-oss-20b", temperature=0)
 
-try:
-    if "GROQ_API_KEY" in st.secrets:
-        GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
-except Exception:
-    pass
-
-# Validate API key
-if not GROQ_API_KEY:
-    raise ValueError(
-        "GROQ_API_KEY is missing. Add it to your .env "
-        "or Streamlit Cloud Secrets."
+def Build_Serach_Agent():
+    return create_agent(
+        model=llm,
+        tools=[web_serach],
     )
-
-# Initialize Groq LLM
-llm = ChatGroq(
-    model="openai/gpt-oss-20b",
-    temperature=0,
-    api_key=GROQ_API_KEY
-)
 
 
 
